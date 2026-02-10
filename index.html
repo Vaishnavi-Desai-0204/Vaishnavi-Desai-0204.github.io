@@ -1,10 +1,96 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>My Website</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Share a Donut 🍩</title>
+
+<style>
+body{
+    font-family: "Comic Sans MS", cursive, sans-serif;
+    background: linear-gradient(135deg,#ffd6e7,#fff3c7);
+    text-align:center;
+    padding-top:80px;
+}
+
+.container{
+    background:white;
+    margin:auto;
+    padding:30px;
+    width:90%;
+    max-width:350px;
+    border-radius:25px;
+    box-shadow:0 6px 15px rgba(0,0,0,0.15);
+}
+
+h1{
+    font-size:26px;
+    color:#ff4f87;
+}
+
+.donut{
+    font-size:70px;
+    margin:20px 0;
+}
+
+button{
+    padding:12px 22px;
+    margin:10px;
+    font-size:16px;
+    border:none;
+    border-radius:20px;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+#yes{
+    background:#ff7fb5;
+    color:white;
+}
+
+#no{
+    background:#eee;
+}
+
+button:hover{
+    transform:scale(1.1);
+}
+
+#message{
+    margin-top:20px;
+    font-size:20px;
+    color:#ff4f87;
+}
+</style>
 </head>
+
 <body>
-    <h1>Hello, this is my website</h1>
-    <p>Hosted for free using GitHub Pages.</p>
+
+<div class="container">
+    <div class="donut">🍩</div>
+    <h1>Will you share a donut with me?</h1>
+
+    <button id="yes">Yes 💕</button>
+    <button id="no">No 🙈</button>
+
+    <div id="message"></div>
+</div>
+
+<script>
+const noBtn = document.getElementById("no");
+const yesBtn = document.getElementById("yes");
+const message = document.getElementById("message");
+
+noBtn.addEventListener("click", () => {
+    const x = Math.random()*200 - 100;
+    const y = Math.random()*200 - 100;
+    noBtn.style.transform = `translate(${x}px, ${y}px)`;
+});
+
+yesBtn.addEventListener("click", () => {
+    message.innerHTML = "Yaaay!! Donut date confirmed 🍩💖";
+});
+</script>
+
 </body>
 </html>
