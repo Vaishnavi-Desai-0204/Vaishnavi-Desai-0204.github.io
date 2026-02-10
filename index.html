@@ -35,12 +35,6 @@ body{
     to{ transform:translateY(-10vh); }
 }
 
-/* music notes */
-.note{
-    font-size:30px;
-    animation:float 8s linear infinite;
-}
-
 .container{
     position:relative;
     z-index:2;
@@ -92,16 +86,11 @@ button{
 
 <body>
 
-<!-- Cute background music -->
-<audio autoplay loop>
-  <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_4c4b9c8d47.mp3?filename=cute-112194.mp3" type="audio/mpeg">
-</audio>
-
 <div class="bg" id="bg"></div>
 
 <div class="container">
     <div class="donut">🍩</div>
-    <h1>will you share teeny tiny donuts wif me ad pweaseeeeeee 🥺💋</h1>
+    <h1>will you share a teeny tiny donut wif me ad pweaseeeeeee 🥺💋</h1>
 
     <button id="yes">Yes 💕</button>
     <button id="no">No 🙈</button>
@@ -121,20 +110,10 @@ for(let i=0;i<90;i++){
     d.className="floating";
     d.innerHTML="🍩";
     d.style.left=Math.random()*100+"%";
-    d.style.top=Math.random()*100+"%";  // scattered everywhere
+    d.style.top=Math.random()*100+"%";
     d.style.fontSize=(60+Math.random()*40)+"px";
     d.style.animationDuration=(8+Math.random()*8)+"s";
     bg.appendChild(d);
-}
-
-/* floating music notes */
-for(let i=0;i<15;i++){
-    const n=document.createElement("div");
-    n.className="floating note";
-    n.innerHTML="🎵";
-    n.style.left=Math.random()*100+"%";
-    n.style.animationDuration=(6+Math.random()*6)+"s";
-    bg.appendChild(n);
 }
 
 /* move NO button when near */
