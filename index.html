@@ -15,7 +15,7 @@ body{
 }
 
 /* floating background */
-.donut-bg{
+.bg{
     position:fixed;
     top:0;
     left:0;
@@ -27,13 +27,18 @@ body{
 
 .floating{
     position:absolute;
-    font-size:80px; /* bigger items */
-    animation:float 10s linear infinite;
+    animation:float linear infinite;
 }
 
 @keyframes float{
-    from{ transform:translateY(100vh); }
+    from{ transform:translateY(110vh); }
     to{ transform:translateY(-10vh); }
+}
+
+/* music notes */
+.note{
+    font-size:30px;
+    animation:float 8s linear infinite;
 }
 
 .container{
@@ -87,11 +92,16 @@ button{
 
 <body>
 
-<div class="donut-bg" id="bg"></div>
+<!-- Cute background music -->
+<audio autoplay loop>
+  <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_4c4b9c8d47.mp3?filename=cute-112194.mp3" type="audio/mpeg">
+</audio>
+
+<div class="bg" id="bg"></div>
 
 <div class="container">
     <div class="donut">🍩</div>
-    <h1>will you share a teeny tiny donut wif me ad pweaseeeeeee 🥺💋</h1>
+    <h1>will you share teeny tiny donuts wif me ad pweaseeeeeee 🥺💋</h1>
 
     <button id="yes">Yes 💕</button>
     <button id="no">No 🙈</button>
@@ -105,21 +115,30 @@ const yesBtn = document.getElementById("yes");
 const message = document.getElementById("message");
 const bg = document.getElementById("bg");
 
-/* create MANY floating donuts + kisses */
-const icons = ["🍩"];
-
-for(let i=0;i<80;i++){   // increased number
+/* scattered donuts */
+for(let i=0;i<90;i++){
     const d = document.createElement("div");
     d.className="floating";
-    d.innerHTML = icons[Math.floor(Math.random()*icons.length)];
+    d.innerHTML="🍩";
     d.style.left=Math.random()*100+"%";
-    d.style.animationDuration=(6+Math.random()*6)+"s";
-    d.style.fontSize = (60 + Math.random()*40)+"px";
+    d.style.top=Math.random()*100+"%";  // scattered everywhere
+    d.style.fontSize=(60+Math.random()*40)+"px";
+    d.style.animationDuration=(8+Math.random()*8)+"s";
     bg.appendChild(d);
 }
 
-/* move NO button when cursor comes close */
-document.addEventListener("mousemove", (e)=>{
+/* floating music notes */
+for(let i=0;i<15;i++){
+    const n=document.createElement("div");
+    n.className="floating note";
+    n.innerHTML="🎵";
+    n.style.left=Math.random()*100+"%";
+    n.style.animationDuration=(6+Math.random()*6)+"s";
+    bg.appendChild(n);
+}
+
+/* move NO button when near */
+document.addEventListener("mousemove",(e)=>{
     const rect = noBtn.getBoundingClientRect();
     const distance = Math.hypot(
         e.clientX - (rect.left + rect.width/2),
@@ -133,8 +152,7 @@ document.addEventListener("mousemove", (e)=>{
     }
 });
 
-/* mobile touch detection */
-document.addEventListener("touchmove", (e)=>{
+document.addEventListener("touchmove",(e)=>{
     const touch = e.touches[0];
     const rect = noBtn.getBoundingClientRect();
 
@@ -150,8 +168,8 @@ document.addEventListener("touchmove", (e)=>{
     }
 });
 
-yesBtn.addEventListener("click", ()=>{
-    message.innerHTML="Yaaay!! donut date confirmed 🍩💖💋";
+yesBtn.addEventListener("click",()=>{
+    message.innerHTML="Yaaay!! donut date confirmed 🍩💖";
 });
 </script>
 
