@@ -8,12 +8,37 @@
 <style>
 body{
     font-family: "Comic Sans MS", cursive, sans-serif;
-    background: linear-gradient(135deg,#ffd6e7,#fff3c7);
+    background:#ffe4ef;
     text-align:center;
     padding-top:80px;
+    overflow:hidden;
+}
+
+/* floating donut background */
+.donut-bg{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    pointer-events:none;
+    z-index:0;
+}
+
+.floating{
+    position:absolute;
+    font-size:30px;
+    animation:float 10s linear infinite;
+}
+
+@keyframes float{
+    from{ transform:translateY(100vh); }
+    to{ transform:translateY(-10vh); }
 }
 
 .container{
+    position:relative;
+    z-index:2;
     background:white;
     margin:auto;
     padding:30px;
@@ -40,7 +65,7 @@ button{
     border:none;
     border-radius:20px;
     cursor:pointer;
-    transition:0.3s;
+    position:relative;
 }
 
 #yes{
@@ -52,10 +77,6 @@ button{
     background:#eee;
 }
 
-button:hover{
-    transform:scale(1.1);
-}
-
 #message{
     margin-top:20px;
     font-size:20px;
@@ -65,6 +86,8 @@ button:hover{
 </head>
 
 <body>
+
+<div class="donut-bg" id="bg"></div>
 
 <div class="container">
     <div class="donut">🍩</div>
@@ -80,15 +103,52 @@ button:hover{
 const noBtn = document.getElementById("no");
 const yesBtn = document.getElementById("yes");
 const message = document.getElementById("message");
+const bg = document.getElementById("bg");
 
-noBtn.addEventListener("click", () => {
-    const x = Math.random()*200 - 100;
-    const y = Math.random()*200 - 100;
-    noBtn.style.transform = `translate(${x}px, ${y}px)`;
+/* create donut background */
+for(let i=0;i<40;i++){
+    const d = document.createElement("div");
+    d.className="floating";
+    d.innerHTML="🍩";
+    d.style.left=Math.random()*100+"%";
+    d.style.animationDuration=(6+Math.random()*6)+"s";
+    bg.appendChild(d);
+}
+
+/* move NO button when cursor comes close */
+document.addEventListener("mousemove", (e)=>{
+    const rect = noBtn.getBoundingClientRect();
+    const distance = Math.hypot(
+        e.clientX - (rect.left + rect.width/2),
+        e.clientY - (rect.top + rect.height/2)
+    );
+
+    if(distance < 120){
+        const x = Math.random()*200 - 100;
+        const y = Math.random()*200 - 100;
+        noBtn.style.transform = `translate(${x}px, ${y}px)`;
+    }
 });
 
-yesBtn.addEventListener("click", () => {
-    message.innerHTML = "Yaaay!! Donut date confirmed 🍩💖";
+/* mobile touch detection */
+document.addEventListener("touchmove", (e)=>{
+    const touch = e.touches[0];
+    const rect = noBtn.getBoundingClientRect();
+
+    const distance = Math.hypot(
+        touch.clientX - (rect.left + rect.width/2),
+        touch.clientY - (rect.top + rect.height/2)
+    );
+
+    if(distance < 120){
+        const x = Math.random()*200 - 100;
+        const y = Math.random()*200 - 100;
+        noBtn.style.transform = `translate(${x}px, ${y}px)`;
+    }
+});
+
+yesBtn.addEventListener("click", ()=>{
+    message.innerHTML="Yaaay!! Donut date confirmed 🍩💖";
 });
 </script>
 
