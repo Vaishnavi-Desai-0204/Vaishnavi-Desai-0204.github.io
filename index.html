@@ -14,7 +14,6 @@ body{
     overflow:hidden;
 }
 
-/* floating donut background */
 .donut-bg{
     position:fixed;
     top:0;
@@ -27,8 +26,11 @@ body{
 
 .floating{
     position:absolute;
-    font-size:30px;
     animation:float 10s linear infinite;
+}
+
+.floating img{
+    width:70px;
 }
 
 @keyframes float{
@@ -49,12 +51,12 @@ body{
 }
 
 h1{
-    font-size:26px;
+    font-size:24px;
     color:#ff4f87;
 }
 
 .donut{
-    font-size:70px;
+    font-size:80px;
     margin:20px 0;
 }
 
@@ -91,9 +93,9 @@ button{
 
 <div class="container">
     <div class="donut">🍩</div>
-    <h1>Will you share a donut with me?</h1>
+    <h1>Will you share a tiny lil donut with me? 🥺🐶</h1>
 
-    <button id="yes">Yes 💕</button>
+    <button id="yes">Yes of course 💕</button>
     <button id="no">No 🙈</button>
 
     <div id="message"></div>
@@ -105,18 +107,35 @@ const yesBtn = document.getElementById("yes");
 const message = document.getElementById("message");
 const bg = document.getElementById("bg");
 
-/* create donut background */
-for(let i=0;i<40;i++){
+/* donut image sources */
+const donutImages = [
+ "https://cdn-icons-png.flaticon.com/512/1046/1046784.png",
+ "https://cdn-icons-png.flaticon.com/512/3075/3075977.png",
+ "https://cdn-icons-png.flaticon.com/512/992/992703.png"
+];
+
+/* create floating donuts */
+for(let i=0;i<35;i++){
     const d = document.createElement("div");
     d.className="floating";
-    d.innerHTML="🍩";
     d.style.left=Math.random()*100+"%";
+    d.style.fontSize = (40 + Math.random()*50)+"px";
     d.style.animationDuration=(6+Math.random()*6)+"s";
+
+    if(Math.random() > 0.5){
+        d.innerHTML="🍩";
+    }else{
+        const img=document.createElement("img");
+        img.src = donutImages[Math.floor(Math.random()*donutImages.length)];
+        img.style.width = (50 + Math.random()*40)+"px";
+        d.appendChild(img);
+    }
+
     bg.appendChild(d);
 }
 
-/* move NO button when cursor comes close */
-document.addEventListener("mousemove", (e)=>{
+/* move NO button when near */
+document.addEventListener("mousemove",(e)=>{
     const rect = noBtn.getBoundingClientRect();
     const distance = Math.hypot(
         e.clientX - (rect.left + rect.width/2),
@@ -130,8 +149,7 @@ document.addEventListener("mousemove", (e)=>{
     }
 });
 
-/* mobile touch detection */
-document.addEventListener("touchmove", (e)=>{
+document.addEventListener("touchmove",(e)=>{
     const touch = e.touches[0];
     const rect = noBtn.getBoundingClientRect();
 
@@ -147,8 +165,8 @@ document.addEventListener("touchmove", (e)=>{
     }
 });
 
-yesBtn.addEventListener("click", ()=>{
-    message.innerHTML="Yaaay!! Donut date confirmed 🍩💖";
+yesBtn.addEventListener("click",()=>{
+    message.innerHTML="Yaaay!! You just agreed to a donut date 🍩💖";
 });
 </script>
 
