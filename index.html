@@ -14,7 +14,7 @@ body{
     overflow:hidden;
 }
 
-/* floating donut background */
+/* floating background */
 .donut-bg{
     position:fixed;
     top:0;
@@ -27,7 +27,7 @@ body{
 
 .floating{
     position:absolute;
-    font-size:70px; /* BIGGER donuts */
+    font-size:80px; /* bigger items */
     animation:float 10s linear infinite;
 }
 
@@ -91,7 +91,7 @@ button{
 
 <div class="container">
     <div class="donut">🍩</div>
-    <h1>Will you share a teeny tiny donut with me pretty please 🥺💋</h1>
+    <h1>will you share a teeny tiny donut wif me ad pweaseeeeeee 🥺💋</h1>
 
     <button id="yes">Yes 💕</button>
     <button id="no">No 🙈</button>
@@ -105,13 +105,16 @@ const yesBtn = document.getElementById("yes");
 const message = document.getElementById("message");
 const bg = document.getElementById("bg");
 
-/* create donut background */
-for(let i=0;i<40;i++){
+/* create MANY floating donuts + kisses */
+const icons = ["🍩","💋"];
+
+for(let i=0;i<80;i++){   // increased number
     const d = document.createElement("div");
     d.className="floating";
-    d.innerHTML="🍩";
+    d.innerHTML = icons[Math.floor(Math.random()*icons.length)];
     d.style.left=Math.random()*100+"%";
     d.style.animationDuration=(6+Math.random()*6)+"s";
+    d.style.fontSize = (60 + Math.random()*40)+"px";
     bg.appendChild(d);
 }
 
@@ -148,7 +151,7 @@ document.addEventListener("touchmove", (e)=>{
 });
 
 yesBtn.addEventListener("click", ()=>{
-    message.innerHTML="Yaaay!! Donut date confirmed 🍩💖";
+    message.innerHTML="Yaaay!! donut date confirmed 🍩💖💋";
 });
 </script>
 
